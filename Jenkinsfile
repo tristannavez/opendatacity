@@ -1,5 +1,3 @@
-python -version 
-
 pipeline {
     agent any
 
