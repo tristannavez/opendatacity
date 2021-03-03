@@ -4,8 +4,31 @@
     <meta charset="UTF-8">
     <title>API OpenData</title>
     <link href="../../static/style.css" rel="stylesheet" media="screen">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <h1>Résultat de la convertion des fichiers</h1>
+    <div class="container h-100">
+        <div class="row">
+            <h1 class="mx-auto d-block mt-5 text-light">Résultat de la convertion des fichiers</h1>
+        </div>
+        <div class="row">
+            <img class="w-50 mx-auto d-block" src="../../static/animation.gif" >
+        </div>
+        <div class="row">
+            <h5 class="mt-5 text-light">Veuillez télécharger vos fichiers</h5>
+        </div>
+        <div class="row mt-5">
+           <div class="input-group mb-3">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile02">
+                <label class="custom-file-label" for="inputGroupFile02">Choisissez un fichier</label>
+              </div>
+              <div class="input-group-append">
+                <span class="input-group-text" id="">Télécharger</span>
+              </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
