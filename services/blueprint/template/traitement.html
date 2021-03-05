@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page de traitement</title>
+    <link href="../../static/style.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container h-100 text-light">
+        <div class="row">
+            <h1 class="mx-auto d-block mt-5 text-light">Résultat de la requête</h1>
+        </div>
+        <h4>Liste des fichiers téléchargés</h4>
+        <div class="row mt-5">
+            <div class="col-12 bloc-file">
+                <img style="width: 5%;" src="../../static/csv-logo.png" >
+                <p class="m-2">{{ name }}</p>
+            </div>
+        </div>
+        <div class="row mt-5 ">
+            <div class="col-6">
+                <a href="{{ url_for('WebService.home') }}" class="btn btn-light">Retour sur la page d'accueil</a>
+            </div>
+            <div class="col-6">
+                <a href="" class="btn btn-warning float-right" >Convertir en XML</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

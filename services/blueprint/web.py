@@ -7,6 +7,8 @@ from flask import Blueprint
 from flask import jsonify
 from flask import redirect
 from flask import render_template
+from flask import request
+from flask import url_for
 
 #from model.users import Users, save_user, update_user
 
@@ -30,6 +32,20 @@ def index():
 
 
 @blueprint.route('/WebService')
-def accueil():
+def home():
     return render_template('render.html')
+
+
+@blueprint.route('/Upload', methods=['GET', 'POST'])
+def upload():
+    if request.method == 'POST':
+        upload_name = request.form['upload']
+        return redirect(url_for('WebService.success', name=upload_name))
+    else:
+        upload_name = request.args.get('upload')
+        return redirect(url_for('WebService.success', name=upload_name))
+
+@blueprint.route('/Success/<name>')
+def success(name):
+    return render_template('traitement.html', name=name)
 
