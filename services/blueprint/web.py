@@ -36,7 +36,7 @@ def home():
     return render_template('render.html')
 
 
-@blueprint.route('/Upload', methods=['GET', 'POST'])
+@blueprint.route('/Upload', methods=['POST'])
 def upload():
     if request.method == 'POST':
         upload_name = request.form['upload']
