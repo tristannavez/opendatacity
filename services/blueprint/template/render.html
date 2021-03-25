@@ -1,11 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>API OpenData</title>
     <link href="../../static/style.css" rel="stylesheet" media="screen">
+    <link href="../../static/style.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-    <h1>Résultat de la convertion des fichiers</h1>
+    <div class="container h-100">
+        <div>
+            <h1 class="mx-auto d-block mt-5 text-light">Résultat de la convertion des fichier</h1>
+            <img class="w-50 mx-auto d-block" src="../../static/animation.gif" >
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <h5 class="mt-5 text-light">Veuillez télécharger vos fichiers</h5>
+            </div>
+            <div class="csv col-md-8" style="display: none;" >
+                <span style="font-size:12px; color: #fff;">Le fichier a bien été téléchargé</span>
+            </div>
+        </div>
+        <div class="row mt-3">
+           <div class="input-group mb-3">
+            <div class="custom-file">
+                <form action="{{ url_for('WebService.upload') }}" method="post">
+                    <input type="file" class="custom-file-input mb-5" id="validatedCustomFile" name="upload" required>
+                    <label class="custom-file-label" for="validatedCustomFile">Choisissez votre fichier</label>
+                    <input type="submit" class="btn btn-warning mt-5"/>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
-</html>
