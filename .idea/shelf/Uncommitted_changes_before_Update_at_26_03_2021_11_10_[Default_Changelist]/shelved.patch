@@ -1,0 +1,698 @@
+Index: services/static/style.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><<<<<<< HEAD\r\nbody{\r\n    background-color: #1470be !important;\r\n=======\r\nh1{\r\n    color:red;\r\n>>>>>>> d965df5... Init\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- services/static/style.css	(revision ef3316e5e50cd6069f641ae102bad6c88b64afbb)
++++ services/static/style.css	(date 1614793938536)
+@@ -1,8 +1,6 @@
+-<<<<<<< HEAD
+ body{
+     background-color: #1470be !important;
+-=======
++
+ h1{
+-    color:red;
+->>>>>>> d965df5... Init
++    color : red;
+ }
+\ No newline at end of file
+Index: services/blueprint/web.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import logging\r\nfrom datetime import date\r\nimport traceback\r\nfrom collections import defaultdict\r\n\r\nfrom flask import Blueprint\r\nfrom flask import jsonify\r\nfrom flask import redirect\r\nfrom flask import render_template\r\n\r\n#from model.users import Users, save_user, update_user\r\n\r\nlogger = logging.getLogger(__name__)\r\nblueprint = Blueprint('WebService', __name__, template_folder='template')\r\n\r\n\r\n\r\n@blueprint.errorhandler(Exception)\r\ndef handle_error(error):\r\n    \"\"\" Handle generic Exception \"\"\"\r\n    logger.warning(repr(error))\r\n    ret = {'exception': [], 'result': {}, 'error': True}\r\n    ret['exception'].append(str(error) + traceback.format_exc())\r\n    return jsonify(ret)\r\n\r\n\r\n@blueprint.route('/')\r\ndef index():\r\n    return redirect('/WebService', 302)\r\n\r\n\r\n@blueprint.route('/WebService')\r\ndef accueil():\r\n    return render_template('render.html')\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- services/blueprint/web.py	(revision ef3316e5e50cd6069f641ae102bad6c88b64afbb)
++++ services/blueprint/web.py	(date 1615076935600)
+@@ -33,3 +33,6 @@
+ def accueil():
+     return render_template('render.html')
+ 
++@blueprint.route('/test')
++def test():
++    cur = mys
+\ No newline at end of file
+Index: wsgi.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from services.app import home\r\n\r\napplication = home()\r\n\r\nif __name__ == \"__main__\":\r\n    application.run(debug=True, host='127.0.0.1', port=2000)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- wsgi.py	(revision ef3316e5e50cd6069f641ae102bad6c88b64afbb)
++++ wsgi.py	(date 1615076749671)
+@@ -1,6 +1,12 @@
+ from services.app import home
+-
++from flask_mysqldb import MySQL
+ application = home()
+ 
++application.config['MYSQL_HOST'] = "localhost"
++application.config['MYSQL_USER'] = "root"
++application.config['MYSQL_PASSWORD'] = ""
++application.config['MYSQL_DB'] = "opendatacity"
++mysql = MySQL(application)
++
+ if __name__ == "__main__":
+     application.run(debug=True, host='127.0.0.1', port=2000)
+Index: .idea/dbnavigator.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/dbnavigator.xml	(date 1614792582897)
++++ .idea/dbnavigator.xml	(date 1614792582897)
+@@ -0,0 +1,457 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="DBNavigator.Project.DataEditorManager">
++    <record-view-column-sorting-type value="BY_INDEX" />
++    <value-preview-text-wrapping value="true" />
++    <value-preview-pinned value="false" />
++  </component>
++  <component name="DBNavigator.Project.DataExportManager">
++    <export-instructions>
++      <create-header value="true" />
++      <quote-values-containing-separator value="true" />
++      <quote-all-values value="false" />
++      <value-separator value="" />
++      <file-name value="" />
++      <file-location value="" />
++      <scope value="GLOBAL" />
++      <destination value="FILE" />
++      <format value="EXCEL" />
++      <charset value="windows-1252" />
++    </export-instructions>
++  </component>
++  <component name="DBNavigator.Project.DatabaseBrowserManager">
++    <autoscroll-to-editor value="false" />
++    <autoscroll-from-editor value="true" />
++    <show-object-properties value="true" />
++    <loaded-nodes />
++  </component>
++  <component name="DBNavigator.Project.DatabaseFileManager">
++    <open-files />
++  </component>
++  <component name="DBNavigator.Project.EditorStateManager">
++    <last-used-providers />
++  </component>
++  <component name="DBNavigator.Project.ExecutionManager">
++    <retain-sticky-names value="false" />
++  </component>
++  <component name="DBNavigator.Project.MethodExecutionManager">
++    <method-browser />
++    <execution-history>
++      <group-entries value="true" />
++      <execution-inputs />
++    </execution-history>
++    <argument-values-cache />
++  </component>
++  <component name="DBNavigator.Project.ObjectDependencyManager">
++    <last-used-dependency-type value="INCOMING" />
++  </component>
++  <component name="DBNavigator.Project.ObjectQuickFilterManager">
++    <last-used-operator value="EQUAL" />
++    <filters />
++  </component>
++  <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
++    <recently-used-interfaces />
++  </component>
++  <component name="DBNavigator.Project.Settings">
++    <connections />
++    <browser-settings>
++      <general>
++        <display-mode value="TABBED" />
++        <navigation-history-size value="100" />
++        <show-object-details value="false" />
++      </general>
++      <filters>
++        <object-type-filter>
++          <object-type name="SCHEMA" enabled="true" />
++          <object-type name="USER" enabled="true" />
++          <object-type name="ROLE" enabled="true" />
++          <object-type name="PRIVILEGE" enabled="true" />
++          <object-type name="CHARSET" enabled="true" />
++          <object-type name="TABLE" enabled="true" />
++          <object-type name="VIEW" enabled="true" />
++          <object-type name="MATERIALIZED_VIEW" enabled="true" />
++          <object-type name="NESTED_TABLE" enabled="true" />
++          <object-type name="COLUMN" enabled="true" />
++          <object-type name="INDEX" enabled="true" />
++          <object-type name="CONSTRAINT" enabled="true" />
++          <object-type name="DATASET_TRIGGER" enabled="true" />
++          <object-type name="DATABASE_TRIGGER" enabled="true" />
++          <object-type name="SYNONYM" enabled="true" />
++          <object-type name="SEQUENCE" enabled="true" />
++          <object-type name="PROCEDURE" enabled="true" />
++          <object-type name="FUNCTION" enabled="true" />
++          <object-type name="PACKAGE" enabled="true" />
++          <object-type name="TYPE" enabled="true" />
++          <object-type name="TYPE_ATTRIBUTE" enabled="true" />
++          <object-type name="ARGUMENT" enabled="true" />
++          <object-type name="DIMENSION" enabled="true" />
++          <object-type name="CLUSTER" enabled="true" />
++          <object-type name="DBLINK" enabled="true" />
++        </object-type-filter>
++      </filters>
++      <sorting>
++        <object-type name="COLUMN" sorting-type="NAME" />
++        <object-type name="FUNCTION" sorting-type="NAME" />
++        <object-type name="PROCEDURE" sorting-type="NAME" />
++        <object-type name="ARGUMENT" sorting-type="POSITION" />
++      </sorting>
++      <default-editors>
++        <object-type name="VIEW" editor-type="SELECTION" />
++        <object-type name="PACKAGE" editor-type="SELECTION" />
++        <object-type name="TYPE" editor-type="SELECTION" />
++      </default-editors>
++    </browser-settings>
++    <navigation-settings>
++      <lookup-filters>
++        <lookup-objects>
++          <object-type name="SCHEMA" enabled="true" />
++          <object-type name="USER" enabled="false" />
++          <object-type name="ROLE" enabled="false" />
++          <object-type name="PRIVILEGE" enabled="false" />
++          <object-type name="CHARSET" enabled="false" />
++          <object-type name="TABLE" enabled="true" />
++          <object-type name="VIEW" enabled="true" />
++          <object-type name="MATERIALIZED VIEW" enabled="true" />
++          <object-type name="NESTED TABLE" enabled="false" />
++          <object-type name="COLUMN" enabled="false" />
++          <object-type name="INDEX" enabled="true" />
++          <object-type name="CONSTRAINT" enabled="true" />
++          <object-type name="DATASET TRIGGER" enabled="true" />
++          <object-type name="DATABASE TRIGGER" enabled="true" />
++          <object-type name="SYNONYM" enabled="false" />
++          <object-type name="SEQUENCE" enabled="true" />
++          <object-type name="PROCEDURE" enabled="true" />
++          <object-type name="FUNCTION" enabled="true" />
++          <object-type name="PACKAGE" enabled="true" />
++          <object-type name="TYPE" enabled="true" />
++          <object-type name="TYPE ATTRIBUTE" enabled="false" />
++          <object-type name="ARGUMENT" enabled="false" />
++          <object-type name="DIMENSION" enabled="false" />
++          <object-type name="CLUSTER" enabled="false" />
++          <object-type name="DBLINK" enabled="true" />
++        </lookup-objects>
++        <force-database-load value="false" />
++        <prompt-connection-selection value="true" />
++        <prompt-schema-selection value="true" />
++      </lookup-filters>
++    </navigation-settings>
++    <dataset-grid-settings>
++      <general>
++        <enable-zooming value="true" />
++        <enable-column-tooltip value="true" />
++      </general>
++      <sorting>
++        <nulls-first value="true" />
++        <max-sorting-columns value="4" />
++      </sorting>
++      <tracking-columns>
++        <columnNames value="" />
++        <visible value="true" />
++        <editable value="false" />
++      </tracking-columns>
++    </dataset-grid-settings>
++    <dataset-editor-settings>
++      <text-editor-popup>
++        <active value="false" />
++        <active-if-empty value="false" />
++        <data-length-threshold value="100" />
++        <popup-delay value="1000" />
++      </text-editor-popup>
++      <values-actions-popup>
++        <show-popup-button value="true" />
++        <element-count-threshold value="1000" />
++        <data-length-threshold value="250" />
++      </values-actions-popup>
++      <general>
++        <fetch-block-size value="100" />
++        <fetch-timeout value="30" />
++        <trim-whitespaces value="true" />
++        <convert-empty-strings-to-null value="true" />
++        <select-content-on-cell-edit value="true" />
++        <large-value-preview-active value="true" />
++      </general>
++      <filters>
++        <prompt-filter-dialog value="true" />
++        <default-filter-type value="BASIC" />
++      </filters>
++      <qualified-text-editor text-length-threshold="300">
++        <content-types>
++          <content-type name="Text" enabled="true" />
++          <content-type name="Properties" enabled="true" />
++          <content-type name="XML" enabled="true" />
++          <content-type name="DTD" enabled="true" />
++          <content-type name="HTML" enabled="true" />
++          <content-type name="XHTML" enabled="true" />
++          <content-type name="SQL" enabled="true" />
++          <content-type name="PL/SQL" enabled="true" />
++          <content-type name="JSON" enabled="true" />
++          <content-type name="JSON5" enabled="true" />
++          <content-type name="YAML" enabled="true" />
++        </content-types>
++      </qualified-text-editor>
++      <record-navigation>
++        <navigation-target value="VIEWER" />
++      </record-navigation>
++    </dataset-editor-settings>
++    <code-editor-settings>
++      <general>
++        <show-object-navigation-gutter value="false" />
++        <show-spec-declaration-navigation-gutter value="true" />
++        <enable-spellchecking value="true" />
++        <enable-reference-spellchecking value="false" />
++      </general>
++      <confirmations>
++        <save-changes value="false" />
++        <revert-changes value="true" />
++      </confirmations>
++    </code-editor-settings>
++    <code-completion-settings>
++      <filters>
++        <basic-filter>
++          <filter-element type="RESERVED_WORD" id="keyword" selected="true" />
++          <filter-element type="RESERVED_WORD" id="function" selected="true" />
++          <filter-element type="RESERVED_WORD" id="parameter" selected="true" />
++          <filter-element type="RESERVED_WORD" id="datatype" selected="true" />
++          <filter-element type="RESERVED_WORD" id="exception" selected="true" />
++          <filter-element type="OBJECT" id="schema" selected="true" />
++          <filter-element type="OBJECT" id="role" selected="true" />
++          <filter-element type="OBJECT" id="user" selected="true" />
++          <filter-element type="OBJECT" id="privilege" selected="true" />
++          <user-schema>
++            <filter-element type="OBJECT" id="table" selected="true" />
++            <filter-element type="OBJECT" id="view" selected="true" />
++            <filter-element type="OBJECT" id="materialized view" selected="true" />
++            <filter-element type="OBJECT" id="index" selected="true" />
++            <filter-element type="OBJECT" id="constraint" selected="true" />
++            <filter-element type="OBJECT" id="trigger" selected="true" />
++            <filter-element type="OBJECT" id="synonym" selected="false" />
++            <filter-element type="OBJECT" id="sequence" selected="true" />
++            <filter-element type="OBJECT" id="procedure" selected="true" />
++            <filter-element type="OBJECT" id="function" selected="true" />
++            <filter-element type="OBJECT" id="package" selected="true" />
++            <filter-element type="OBJECT" id="type" selected="true" />
++            <filter-element type="OBJECT" id="dimension" selected="true" />
++            <filter-element type="OBJECT" id="cluster" selected="true" />
++            <filter-element type="OBJECT" id="dblink" selected="true" />
++          </user-schema>
++          <public-schema>
++            <filter-element type="OBJECT" id="table" selected="false" />
++            <filter-element type="OBJECT" id="view" selected="false" />
++            <filter-element type="OBJECT" id="materialized view" selected="false" />
++            <filter-element type="OBJECT" id="index" selected="false" />
++            <filter-element type="OBJECT" id="constraint" selected="false" />
++            <filter-element type="OBJECT" id="trigger" selected="false" />
++            <filter-element type="OBJECT" id="synonym" selected="false" />
++            <filter-element type="OBJECT" id="sequence" selected="false" />
++            <filter-element type="OBJECT" id="procedure" selected="false" />
++            <filter-element type="OBJECT" id="function" selected="false" />
++            <filter-element type="OBJECT" id="package" selected="false" />
++            <filter-element type="OBJECT" id="type" selected="false" />
++            <filter-element type="OBJECT" id="dimension" selected="false" />
++            <filter-element type="OBJECT" id="cluster" selected="false" />
++            <filter-element type="OBJECT" id="dblink" selected="false" />
++          </public-schema>
++          <any-schema>
++            <filter-element type="OBJECT" id="table" selected="true" />
++            <filter-element type="OBJECT" id="view" selected="true" />
++            <filter-element type="OBJECT" id="materialized view" selected="true" />
++            <filter-element type="OBJECT" id="index" selected="true" />
++            <filter-element type="OBJECT" id="constraint" selected="true" />
++            <filter-element type="OBJECT" id="trigger" selected="true" />
++            <filter-element type="OBJECT" id="synonym" selected="true" />
++            <filter-element type="OBJECT" id="sequence" selected="true" />
++            <filter-element type="OBJECT" id="procedure" selected="true" />
++            <filter-element type="OBJECT" id="function" selected="true" />
++            <filter-element type="OBJECT" id="package" selected="true" />
++            <filter-element type="OBJECT" id="type" selected="true" />
++            <filter-element type="OBJECT" id="dimension" selected="true" />
++            <filter-element type="OBJECT" id="cluster" selected="true" />
++            <filter-element type="OBJECT" id="dblink" selected="true" />
++          </any-schema>
++        </basic-filter>
++        <extended-filter>
++          <filter-element type="RESERVED_WORD" id="keyword" selected="true" />
++          <filter-element type="RESERVED_WORD" id="function" selected="true" />
++          <filter-element type="RESERVED_WORD" id="parameter" selected="true" />
++          <filter-element type="RESERVED_WORD" id="datatype" selected="true" />
++          <filter-element type="RESERVED_WORD" id="exception" selected="true" />
++          <filter-element type="OBJECT" id="schema" selected="true" />
++          <filter-element type="OBJECT" id="user" selected="true" />
++          <filter-element type="OBJECT" id="role" selected="true" />
++          <filter-element type="OBJECT" id="privilege" selected="true" />
++          <user-schema>
++            <filter-element type="OBJECT" id="table" selected="true" />
++            <filter-element type="OBJECT" id="view" selected="true" />
++            <filter-element type="OBJECT" id="materialized view" selected="true" />
++            <filter-element type="OBJECT" id="index" selected="true" />
++            <filter-element type="OBJECT" id="constraint" selected="true" />
++            <filter-element type="OBJECT" id="trigger" selected="true" />
++            <filter-element type="OBJECT" id="synonym" selected="true" />
++            <filter-element type="OBJECT" id="sequence" selected="true" />
++            <filter-element type="OBJECT" id="procedure" selected="true" />
++            <filter-element type="OBJECT" id="function" selected="true" />
++            <filter-element type="OBJECT" id="package" selected="true" />
++            <filter-element type="OBJECT" id="type" selected="true" />
++            <filter-element type="OBJECT" id="dimension" selected="true" />
++            <filter-element type="OBJECT" id="cluster" selected="true" />
++            <filter-element type="OBJECT" id="dblink" selected="true" />
++          </user-schema>
++          <public-schema>
++            <filter-element type="OBJECT" id="table" selected="true" />
++            <filter-element type="OBJECT" id="view" selected="true" />
++            <filter-element type="OBJECT" id="materialized view" selected="true" />
++            <filter-element type="OBJECT" id="index" selected="true" />
++            <filter-element type="OBJECT" id="constraint" selected="true" />
++            <filter-element type="OBJECT" id="trigger" selected="true" />
++            <filter-element type="OBJECT" id="synonym" selected="true" />
++            <filter-element type="OBJECT" id="sequence" selected="true" />
++            <filter-element type="OBJECT" id="procedure" selected="true" />
++            <filter-element type="OBJECT" id="function" selected="true" />
++            <filter-element type="OBJECT" id="package" selected="true" />
++            <filter-element type="OBJECT" id="type" selected="true" />
++            <filter-element type="OBJECT" id="dimension" selected="true" />
++            <filter-element type="OBJECT" id="cluster" selected="true" />
++            <filter-element type="OBJECT" id="dblink" selected="true" />
++          </public-schema>
++          <any-schema>
++            <filter-element type="OBJECT" id="table" selected="true" />
++            <filter-element type="OBJECT" id="view" selected="true" />
++            <filter-element type="OBJECT" id="materialized view" selected="true" />
++            <filter-element type="OBJECT" id="index" selected="true" />
++            <filter-element type="OBJECT" id="constraint" selected="true" />
++            <filter-element type="OBJECT" id="trigger" selected="true" />
++            <filter-element type="OBJECT" id="synonym" selected="true" />
++            <filter-element type="OBJECT" id="sequence" selected="true" />
++            <filter-element type="OBJECT" id="procedure" selected="true" />
++            <filter-element type="OBJECT" id="function" selected="true" />
++            <filter-element type="OBJECT" id="package" selected="true" />
++            <filter-element type="OBJECT" id="type" selected="true" />
++            <filter-element type="OBJECT" id="dimension" selected="true" />
++            <filter-element type="OBJECT" id="cluster" selected="true" />
++            <filter-element type="OBJECT" id="dblink" selected="true" />
++          </any-schema>
++        </extended-filter>
++      </filters>
++      <sorting enabled="true">
++        <sorting-element type="RESERVED_WORD" id="keyword" />
++        <sorting-element type="RESERVED_WORD" id="datatype" />
++        <sorting-element type="OBJECT" id="column" />
++        <sorting-element type="OBJECT" id="table" />
++        <sorting-element type="OBJECT" id="view" />
++        <sorting-element type="OBJECT" id="materialized view" />
++        <sorting-element type="OBJECT" id="index" />
++        <sorting-element type="OBJECT" id="constraint" />
++        <sorting-element type="OBJECT" id="trigger" />
++        <sorting-element type="OBJECT" id="synonym" />
++        <sorting-element type="OBJECT" id="sequence" />
++        <sorting-element type="OBJECT" id="procedure" />
++        <sorting-element type="OBJECT" id="function" />
++        <sorting-element type="OBJECT" id="package" />
++        <sorting-element type="OBJECT" id="type" />
++        <sorting-element type="OBJECT" id="dimension" />
++        <sorting-element type="OBJECT" id="cluster" />
++        <sorting-element type="OBJECT" id="dblink" />
++        <sorting-element type="OBJECT" id="schema" />
++        <sorting-element type="OBJECT" id="role" />
++        <sorting-element type="OBJECT" id="user" />
++        <sorting-element type="RESERVED_WORD" id="function" />
++        <sorting-element type="RESERVED_WORD" id="parameter" />
++      </sorting>
++      <format>
++        <enforce-code-style-case value="true" />
++      </format>
++    </code-completion-settings>
++    <execution-engine-settings>
++      <statement-execution>
++        <fetch-block-size value="100" />
++        <execution-timeout value="20" />
++        <debug-execution-timeout value="600" />
++        <focus-result value="false" />
++        <prompt-execution value="false" />
++      </statement-execution>
++      <script-execution>
++        <command-line-interfaces />
++        <execution-timeout value="300" />
++      </script-execution>
++      <method-execution>
++        <execution-timeout value="30" />
++        <debug-execution-timeout value="600" />
++        <parameter-history-size value="10" />
++      </method-execution>
++    </execution-engine-settings>
++    <operation-settings>
++      <transactions>
++        <uncommitted-changes>
++          <on-project-close value="ASK" />
++          <on-disconnect value="ASK" />
++          <on-autocommit-toggle value="ASK" />
++        </uncommitted-changes>
++        <multiple-uncommitted-changes>
++          <on-commit value="ASK" />
++          <on-rollback value="ASK" />
++        </multiple-uncommitted-changes>
++      </transactions>
++      <session-browser>
++        <disconnect-session value="ASK" />
++        <kill-session value="ASK" />
++        <reload-on-filter-change value="false" />
++      </session-browser>
++      <compiler>
++        <compile-type value="KEEP" />
++        <compile-dependencies value="ASK" />
++        <always-show-controls value="false" />
++      </compiler>
++      <debugger>
++        <debugger-type value="JDBC" />
++        <use-generic-runners value="true" />
++      </debugger>
++    </operation-settings>
++    <ddl-file-settings>
++      <extensions>
++        <mapping file-type-id="VIEW" extensions="vw" />
++        <mapping file-type-id="TRIGGER" extensions="trg" />
++        <mapping file-type-id="PROCEDURE" extensions="prc" />
++        <mapping file-type-id="FUNCTION" extensions="fnc" />
++        <mapping file-type-id="PACKAGE" extensions="pkg" />
++        <mapping file-type-id="PACKAGE_SPEC" extensions="pks" />
++        <mapping file-type-id="PACKAGE_BODY" extensions="pkb" />
++        <mapping file-type-id="TYPE" extensions="tpe" />
++        <mapping file-type-id="TYPE_SPEC" extensions="tps" />
++        <mapping file-type-id="TYPE_BODY" extensions="tpb" />
++      </extensions>
++      <general>
++        <lookup-ddl-files value="true" />
++        <create-ddl-files value="false" />
++        <synchronize-ddl-files value="true" />
++        <use-qualified-names value="false" />
++        <make-scripts-rerunnable value="true" />
++      </general>
++    </ddl-file-settings>
++    <general-settings>
++      <regional-settings>
++        <date-format value="MEDIUM" />
++        <number-format value="UNGROUPED" />
++        <locale value="SYSTEM_DEFAULT" />
++        <use-custom-formats value="false" />
++      </regional-settings>
++      <environment>
++        <environment-types>
++          <environment-type id="development" name="Development" description="Development environment" color="-2430209/-12296320" readonly-code="false" readonly-data="false" />
++          <environment-type id="integration" name="Integration" description="Integration environment" color="-2621494/-12163514" readonly-code="true" readonly-data="false" />
++          <environment-type id="production" name="Production" description="Productive environment" color="-11574/-10271420" readonly-code="true" readonly-data="true" />
++          <environment-type id="other" name="Other" description="" color="-1576/-10724543" readonly-code="false" readonly-data="false" />
++        </environment-types>
++        <visibility-settings>
++          <connection-tabs value="true" />
++          <dialog-headers value="true" />
++          <object-editor-tabs value="true" />
++          <script-editor-tabs value="false" />
++          <execution-result-tabs value="true" />
++        </visibility-settings>
++      </environment>
++    </general-settings>
++  </component>
++  <component name="DBNavigator.Project.StatementExecutionManager">
++    <execution-variables />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n<<<<<<< HEAD\r\n    <list default=\"true\" id=\"e30b22c9-33d4-4d11-ad82-9f51a6d30c80\" name=\"Default Changelist\" comment=\"\">\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/vcs.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n<<<<<<< HEAD\r\n=======\r\n      <change beforePath=\"$PROJECT_DIR$/services/blueprint/template/render.html\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/services/blueprint/template/render.html\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/services/static/style.css\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/services/static/style.css\" afterDir=\"false\" />\r\n>>>>>>> ui\r\n    </list>\r\n=======\r\n    <list default=\"true\" id=\"e30b22c9-33d4-4d11-ad82-9f51a6d30c80\" name=\"Default Changelist\" comment=\"\" />\r\n>>>>>>> d965df5... Init\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"HTML File\" />\r\n        <option value=\"Python Script\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n<<<<<<< HEAD\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"1pFVERF4WXO7qv7dSi9qCJiqXBK\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n=======\r\n  <component name=\"ProjectId\" id=\"1pFVERF4WXO7qv7dSi9qCJiqXBK\" />\r\n>>>>>>> d965df5... Init\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showExcludedFiles\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"DefaultHtmlFileTemplate\" value=\"HTML File\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n<<<<<<< HEAD\r\n    <property name=\"SHARE_PROJECT_CONFIGURATION_FILES\" value=\"true\" />\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$/blueprint\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"vcs.Git\" />\r\n=======\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$/blueprint\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"PyConsoleConfigurable.Python Console\" />\r\n>>>>>>> d965df5... Init\r\n  </component>\r\n  <component name=\"PyConsoleOptionsProvider\">\r\n    <option name=\"myPythonConsoleState\">\r\n      <console-settings module-name=\"OpenData\" is-module-sdk=\"true\">\r\n        <option name=\"myUseModuleSdk\" value=\"true\" />\r\n        <option name=\"myModuleName\" value=\"OpenData\" />\r\n      </console-settings>\r\n    </option>\r\n  </component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\oriol\\PycharmProjects\\OpenData\\services\\static\" />\r\n      <recent name=\"C:\\Users\\oriol\\PycharmProjects\\OpenData\\services\\blueprint\\template\" />\r\n      <recent name=\"C:\\Users\\oriol\\PycharmProjects\\OpenData\\services\" />\r\n    </key>\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\oriol\\PycharmProjects\\OpenData\\blueprint\" />\r\n      <recent name=\"C:\\Users\\oriol\\PycharmProjects\\OpenData\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Python.wsgi\">\r\n    <configuration name=\"app\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"OpenData\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"C:\\Users\\oriol\\PycharmProjects\\OpenData\\services\\app.py\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"wsgi\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"OpenData\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/wsgi.py\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Python.wsgi\" />\r\n        <item itemvalue=\"Python.app\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SvnConfiguration\">\r\n    <configuration />\r\n  </component>\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"e30b22c9-33d4-4d11-ad82-9f51a6d30c80\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1614778712773</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1614778712773</updated>\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"WindowStateProjectService\">\r\n    <state x=\"524\" y=\"216\" key=\"#com.intellij.fileTypes.FileTypeChooser\" timestamp=\"1614782770833\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"824\" />\r\n    </state>\r\n    <state x=\"524\" y=\"216\" key=\"#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824/2.-1080.1920.1040@0.0.1536.824\" timestamp=\"1614782770833\" />\r\n    <state x=\"503\" y=\"175\" width=\"839\" height=\"518\" key=\"EnvironmentVariablesDialog\" timestamp=\"1614785417893\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"824\" />\r\n    </state>\r\n    <state x=\"503\" y=\"175\" width=\"839\" height=\"518\" key=\"EnvironmentVariablesDialog/0.0.1536.824/2.-1080.1920.1040@0.0.1536.824\" timestamp=\"1614785417893\" />\r\n    <state x=\"549\" y=\"168\" key=\"FileChooserDialogImpl\" timestamp=\"1614779164229\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"824\" />\r\n    </state>\r\n    <state x=\"549\" y=\"168\" key=\"FileChooserDialogImpl/0.0.1536.824/2.-1080.1920.1040@0.0.1536.824\" timestamp=\"1614779164229\" />\r\n    <state width=\"1515\" height=\"249\" key=\"GridCell.Tab.0.bottom\" timestamp=\"1614785115389\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"824\" />\r\n    </state>\r\n    <state width=\"1515\" height=\"249\" key=\"GridCell.Tab.0.bottom/0.0.1536.824/2.-1080.1920.1040@0.0.1536.824\" timestamp=\"1614785115389\" />\r\n    <state width=\"1498\" height=\"221\" key=\"GridCell.Tab.0.bottom/0.0.1536.824/2.-1080.1920.1040@2.-1080.1920.1040\" timestamp=\"1614784110644\" />\r\n    <state width=\"1515\" height=\"249\" key=\"GridCell.Tab.0.center\" timestamp=\"1614785115389\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"824\" />\r\n    </state>\r\n    <state width=\"1515\" height=\"249\" key=\"GridCell.Tab.0.center/0.0.1536.824/2.-1080.1920.1040@0.0.1536.824\" timestamp=\"1614785115389\" />\r\n    <state width=\"1498\" height=\"221\" key=\"GridCell.Tab.0.center/0.0.1536.824/2.-1080.1920.1040@2.-1080.1920.1040\" timestamp=\"1614784110644\" />\r\n    <state width=\"1515\" height=\"249\" key=\"GridCell.Tab.0.left\" timestamp=\"1614785115388\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"824\" />\r\n    </state>\r\n    <state width=\"1515\" height=\"249\" key=\"GridCell.Tab.0.left/0.0.1536.824/2.-1080.1920.1040@0.0.1536.824\" timestamp=\"1614785115388\" />\r\n    <state width=\"1498\" height=\"221\" key=\"GridCell.Tab.0.left/0.0.1536.824/2.-1080.1920.1040@2.-1080.1920.1040\" timestamp=\"1614784110641\" />\r\n    <state width=\"1515\" height=\"249\" key=\"GridCell.Tab.0.right\" timestamp=\"1614785115389\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"824\" />\r\n    </state>\r\n    <state width=\"1515\" height=\"249\" key=\"GridCell.Tab.0.right/0.0.1536.824/2.-1080.1920.1040@0.0.1536.824\" timestamp=\"1614785115389\" />\r\n    <state width=\"1498\" height=\"221\" key=\"GridCell.Tab.0.right/0.0.1536.824/2.-1080.1920.1040@2.-1080.1920.1040\" timestamp=\"1614784110644\" />\r\n<<<<<<< HEAD\r\n    <state x=\"277\" y=\"56\" key=\"SettingsEditor\" timestamp=\"1614792227953\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"824\" />\r\n    </state>\r\n    <state x=\"277\" y=\"56\" key=\"SettingsEditor/0.0.1536.824/2.-1080.1920.1040@0.0.1536.824\" timestamp=\"1614792227953\" />\r\n=======\r\n    <state x=\"277\" y=\"56\" key=\"SettingsEditor\" timestamp=\"1614785437916\">\r\n      <screen x=\"0\" y=\"0\" width=\"1536\" height=\"824\" />\r\n    </state>\r\n    <state x=\"277\" y=\"56\" key=\"SettingsEditor/0.0.1536.824/2.-1080.1920.1040@0.0.1536.824\" timestamp=\"1614785437916\" />\r\n>>>>>>> d965df5... Init\r\n    <state x=\"348\" y=\"-1009\" key=\"SettingsEditor/0.0.1536.824/2.-1080.1920.1040@2.-1080.1920.1040\" timestamp=\"1614781543325\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/workspace.xml	(revision ef3316e5e50cd6069f641ae102bad6c88b64afbb)
++++ .idea/workspace.xml	(date 1616753239549)
+@@ -1,19 +1,14 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ChangeListManager">
+-<<<<<<< HEAD
+     <list default="true" id="e30b22c9-33d4-4d11-ad82-9f51a6d30c80" name="Default Changelist" comment="">
+-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/services/blueprint/template/test.html" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-<<<<<<< HEAD
+-=======
+-      <change beforePath="$PROJECT_DIR$/services/blueprint/template/render.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/blueprint/template/render.html" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/services/blueprint/web.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/blueprint/web.py" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/services/static/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/services/static/style.css" afterDir="false" />
+->>>>>>> ui
++      <change beforePath="$PROJECT_DIR$/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/wsgi.py" afterDir="false" />
+     </list>
+-=======
+-    <list default="true" id="e30b22c9-33d4-4d11-ad82-9f51a6d30c80" name="Default Changelist" comment="" />
+->>>>>>> d965df5... Init
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -22,36 +17,27 @@
+   <component name="FileTemplateManagerImpl">
+     <option name="RECENT_TEMPLATES">
+       <list>
+-        <option value="HTML File" />
+         <option value="Python Script" />
++        <option value="HTML File" />
+       </list>
+     </option>
+   </component>
+-<<<<<<< HEAD
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
+-  <component name="ProjectId" id="1pFVERF4WXO7qv7dSi9qCJiqXBK" />
+-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+-=======
++  <component name="GitToolBoxStore">
++    <option name="projectConfigVersion" value="2" />
++  </component>
+   <component name="ProjectId" id="1pFVERF4WXO7qv7dSi9qCJiqXBK" />
+->>>>>>> d965df5... Init
+   <component name="ProjectViewState">
+     <option name="hideEmptyMiddlePackages" value="true" />
+-    <option name="showExcludedFiles" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+   <component name="PropertiesComponent">
+     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+-<<<<<<< HEAD
+-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+     <property name="last_opened_file_path" value="$PROJECT_DIR$/blueprint" />
+-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+-=======
+-    <property name="last_opened_file_path" value="$PROJECT_DIR$/blueprint" />
+-    <property name="settings.editor.selected.configurable" value="PyConsoleConfigurable.Python Console" />
+->>>>>>> d965df5... Init
++    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+   </component>
+   <component name="PyConsoleOptionsProvider">
+     <option name="myPythonConsoleState">
+@@ -72,7 +58,28 @@
+       <recent name="C:\Users\oriol\PycharmProjects\OpenData" />
+     </key>
+   </component>
+-  <component name="RunManager" selected="Python.wsgi">
++  <component name="RunManager" selected="Python.app (1)">
++    <configuration name="app (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
++      <module name="OpenData" />
++      <option name="INTERPRETER_OPTIONS" value="" />
++      <option name="PARENT_ENVS" value="true" />
++      <envs>
++        <env name="PYTHONUNBUFFERED" value="1" />
++      </envs>
++      <option name="SDK_HOME" value="" />
++      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/services" />
++      <option name="IS_MODULE_SDK" value="true" />
++      <option name="ADD_CONTENT_ROOTS" value="true" />
++      <option name="ADD_SOURCE_ROOTS" value="true" />
++      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/services/app.py" />
++      <option name="PARAMETERS" value="" />
++      <option name="SHOW_COMMAND_LINE" value="false" />
++      <option name="EMULATE_TERMINAL" value="false" />
++      <option name="MODULE_MODE" value="false" />
++      <option name="REDIRECT_INPUT" value="false" />
++      <option name="INPUT_FILE" value="" />
++      <method v="2" />
++    </configuration>
+     <configuration name="app" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+       <module name="OpenData" />
+       <option name="INTERPRETER_OPTIONS" value="" />
+@@ -117,11 +124,13 @@
+     </configuration>
+     <recent_temporary>
+       <list>
++        <item itemvalue="Python.app (1)" />
+         <item itemvalue="Python.wsgi" />
+         <item itemvalue="Python.app" />
+       </list>
+     </recent_temporary>
+   </component>
++  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="SvnConfiguration">
+     <configuration />
+   </component>
+@@ -168,17 +177,11 @@
+     </state>
+     <state width="1515" height="249" key="GridCell.Tab.0.right/0.0.1536.824/2.-1080.1920.1040@0.0.1536.824" timestamp="1614785115389" />
+     <state width="1498" height="221" key="GridCell.Tab.0.right/0.0.1536.824/2.-1080.1920.1040@2.-1080.1920.1040" timestamp="1614784110644" />
+-<<<<<<< HEAD
+-    <state x="277" y="56" key="SettingsEditor" timestamp="1614792227953">
+-      <screen x="0" y="0" width="1536" height="824" />
++    <state x="3546" y="71" key="SettingsEditor" timestamp="1614945603972">
++      <screen x="3200" y="0" width="1920" height="1040" />
+     </state>
+-    <state x="277" y="56" key="SettingsEditor/0.0.1536.824/2.-1080.1920.1040@0.0.1536.824" timestamp="1614792227953" />
+-=======
+-    <state x="277" y="56" key="SettingsEditor" timestamp="1614785437916">
+-      <screen x="0" y="0" width="1536" height="824" />
+-    </state>
++    <state x="3546" y="71" key="SettingsEditor/0.0.1422.760/3200.0.1920.1040@3200.0.1920.1040" timestamp="1614945603972" />
+     <state x="277" y="56" key="SettingsEditor/0.0.1536.824/2.-1080.1920.1040@0.0.1536.824" timestamp="1614785437916" />
+->>>>>>> d965df5... Init
+     <state x="348" y="-1009" key="SettingsEditor/0.0.1536.824/2.-1080.1920.1040@2.-1080.1920.1040" timestamp="1614781543325" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: services/blueprint/template/test.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- services/blueprint/template/test.html	(date 1614945430330)
++++ services/blueprint/template/test.html	(date 1614945430330)
+@@ -0,0 +1,21 @@
++<!DOCTYPE html>
++<html lang="en">
++<head>
++    <meta charset="UTF-8">
++    <title>Title</title>
++</head>
++<body>
++<table>
++    {%for test in testselect %}
++    <tr>
++        <td>
++            {{test[1]}}
++        </td>
++        <td>
++            {{test[2]}}
++        </td>
++    </tr>
++    {% endfor %}
++</table>
++</body>
++</html>
+\ No newline at end of file
